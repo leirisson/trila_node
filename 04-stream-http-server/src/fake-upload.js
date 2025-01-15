@@ -12,7 +12,7 @@ class OnToHundredStream extends Readable {
       } else {
         this.push(Buffer.from(String(i)))
       }
-    }, 1000)
+    }, 100)
   }
 }
 
