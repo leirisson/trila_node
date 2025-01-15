@@ -1,7 +1,7 @@
 // Stream -> 
 
 // stdin = strem de entrada 
-// stdout = sream de saida
+// stdout = stream de saida
 // usando o pipe para ler os dados aos poucos
 // process.stdin.pipe(process.stdout)
 
@@ -12,7 +12,7 @@ class OneToHundredStream extends Readable {
 
   index = 1
   // criando uma stream de leitura do zera
-  // pode ser interpretado como leru dado do front-end 
+  // pode ser interpretado como ler dado do front-end 
   // metodo obrigatorio 
 
   _read() {
