@@ -1,0 +1,14 @@
+{
+  "name": "05-consumindo-a-stream-completa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ./src/app.js",
+    "dev": "node ./src/stream.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
