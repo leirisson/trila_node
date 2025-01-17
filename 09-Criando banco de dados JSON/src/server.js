@@ -1,36 +1,25 @@
 import http from 'node:http'
-import { Database } from './db/database.js'
+import { routes } from './routes/routes.js'
 import { json } from './middlewares/json.js'
 
-const database = new Database()
-
-const server = http.createServer( async (req, res) => {
-  const { method, url} = req
+const server = http.createServer(async (req, res) => {
+  const { method, url } = req
 
   // usando middleware 
   await json(req, res)
 
-  if(method === 'GET' && url === '/users'){
-    const users = database.select('users')
-    return res
-    .end(JSON.stringify(users))
+  const route = routes.find(route => {
+    return route.method === method && route.path === url
+  })
+
+
+  // se a rota existir, chama a função handle e passa o req e res
+  if(route){
+    return route.handle(req, res)
   }
 
-  if(method === 'POST' && url === '/users'){
-    const { name, email } = req.body
 
-    const user =  {
-      id:1,
-      name, 
-      email,
-    }
-
-    database.insert('users', user)
-
-    return res.writeHead(201).end()
-  }
-
-  res.writeHead(404).end()
+  return res.writeHead(404).end()
 })
 
 server.listen(3334)
