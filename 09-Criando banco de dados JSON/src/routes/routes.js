@@ -1,16 +1,24 @@
 import { Database } from '../db/database.js'
 import { randomUUID } from 'node:crypto'
 import { buildRoutePath } from '../utils/build-route-path.js'
+import path from 'node:path'
 
 
 const database = new Database()
 
-export const routes  = [
+export const routes = [
   {
     method: 'GET',
     path: buildRoutePath('/users'),
     handle: (req, res) => {
-      const users = database.select('users')
+      
+      const { pesquisa } = req.query
+      
+      const users = database.select('users', pesquisa ?  {
+        name: pesquisa,
+        email: pesquisa,
+      }: null)
+
       return res.end(JSON.stringify(users))
     }
   },
@@ -18,7 +26,7 @@ export const routes  = [
     method: 'POST',
     path: buildRoutePath('/users'),
     handle: (req, res) => {
-      const {name, email} = req.body
+      const { name, email } = req.body
       const user = {
         id: randomUUID(),
         name,
@@ -30,12 +38,27 @@ export const routes  = [
     }
   },
   {
-    metod:'DELETE',
+    method: 'DELETE',
     path: buildRoutePath('/users/:id'),
-    handle:(req,res)=>{
-      const {id} = req.params
-      console.log(id)
-      return res.end()
+    handle: (req, res) => {
+      const id = req.params
+      database.delete('users', id)
+      return res.writeHead(204).end()
+    },
+  },
+  {
+    method: 'PUT',
+    path: buildRoutePath('/users/:id'),
+    handle: (req, res) => {
+      const id = req.params
+      const { name, email } = req.body
+      const user = {
+        id,
+        name,
+        email
+      }
+      database.update('users', id, user)
+      return res.writeHead(204).end()
     }
   }
 ]
