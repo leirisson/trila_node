@@ -1,0 +1,21 @@
+{
+  "name": "01-conhecendo-fastify",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "Leirisson souza dos santos",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^20.8.4",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "fastify": "^5.2.1"
+  }
+}
