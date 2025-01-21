@@ -7,8 +7,9 @@ app.get('/hello', () => {
     return "Hello"
 })
 
+
 app.listen({
     port: 3333
 }).then(() => {
-    console.log("hello")
+    console.log("http server runing")
 })

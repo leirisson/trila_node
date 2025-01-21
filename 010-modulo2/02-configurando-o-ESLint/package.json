@@ -14,7 +14,9 @@
     "fastify": "^5.2.1"
   },
   "devDependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^20.17.14",
+    "eslint": "^8.57.1",
     "tsx": "^4.19.2"
   }
 }

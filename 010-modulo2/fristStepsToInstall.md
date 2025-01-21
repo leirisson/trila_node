@@ -5,7 +5,11 @@
 ## 5 da o comando npm install fastify
 ## 6 criar o servidor
 ## 7 instalar como dependencia de desenvolvimento: 
-### --- npm i @types/node
+### --- npm i -D @types/node
 ### --- npm istall tsx -D
 ## 8 cnfigurar o arquivo.json
-### --- "dev":"tsx src/server.ts"
+### --- "dev":"tsx whatch src/server.ts"
+==========================================
+## 1 configurar o esLint
+## 2 estrategias de conexão com o banco de dados
+## 
