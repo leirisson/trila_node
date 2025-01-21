@@ -9,12 +9,7 @@ const server = http.createServer(async (req, res) => {
 
   // usando middleware 
   await json(req, res)
-
-// Query paremeter:
-// Route Parameter:
-// request body:
-
-
+  
   const route = routes.find(route => {
     const validadnoRota =  route.method === method && route.path.test(url)
     return validadnoRota
