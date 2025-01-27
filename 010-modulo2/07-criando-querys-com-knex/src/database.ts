@@ -1,3 +1,5 @@
 import { knex as setupKnex, Knex } from 'knex'
 
-export const 
+export const configKnex = {
+    
+}
