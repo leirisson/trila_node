@@ -1,5 +1,5 @@
 {
-  "name": "07-criando-querys-com-knex",
+  "name": "08-config-variaveis-de-ambiente",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,9 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
     "knex": "^3.1.0",
     "sqlite3": "^5.1.7"
