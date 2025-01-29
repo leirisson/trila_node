@@ -1,8 +1,10 @@
 import { knex } from "../src/database"
+import { FastifyInstance } from 'fastify'
 
 
 
-export async function transactionsRoute(app){
+export async function transactionsRoute(app: FastifyInstance){
+
 
 
 // crinado banco de dados 
