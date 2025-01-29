@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import {knex as knexSetup, Knex} from 'knex'
+import { knex as knexSetup, Knex } from 'knex'
 import { env } from '../env/index';
 
 
@@ -13,7 +13,7 @@ export const configKnex: Knex.Config = {
     extension: 'ts',
     directory: './db/migrations'
   },
- 
+
 }
 
 export const knex = knexSetup(configKnex)
