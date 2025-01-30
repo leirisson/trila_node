@@ -8,6 +8,7 @@ export const configureKnex: Knex.Config = {
   connection: {
     filename: env.DATABASE_URL
   },
+  useNullAsDefault: true,
   migrations: {
     extension: env.EXTENSION,
     directory: env.DIRECTORY
