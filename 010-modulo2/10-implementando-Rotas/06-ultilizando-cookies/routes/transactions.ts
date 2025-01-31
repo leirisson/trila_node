@@ -4,7 +4,9 @@ import { randomUUID } from 'node:crypto'
 import { FastifyInstance } from "fastify";
 
 
-export function transactionRoutes(app) {
+export function transactionRoutes(app: FastifyInstance) {
+
+
 
     app.get('/all', async () => {
         const allTransactions = await knex('transactions')
@@ -25,7 +27,7 @@ export function transactionRoutes(app) {
             .where('id', id).first()
             .select()
 
-        return {oneTransaction}
+        return { oneTransaction }
     })
 
     app.post('/insert', async (request, reply) => {
@@ -41,12 +43,24 @@ export function transactionRoutes(app) {
 
         const { title, amount, description, type } = createSchemaBody.parse(request.body)
 
+        let sessionId = request.cookies.sessionId
+
+        if (!sessionId) {
+            sessionId = randomUUID()
+            
+            reply.cookie('sessionId', sessionId, {
+                path: '/',
+                maxAge: 60 * 60 * 24 * 7 // dura 7 dias
+            })
+        }
+
         await knex('transactions')
             .insert({
                 id: randomUUID(),
                 title,
                 amount: type === 'credit' ? amount : amount * -1,
                 description,
+                sessionId,
             })
 
 
