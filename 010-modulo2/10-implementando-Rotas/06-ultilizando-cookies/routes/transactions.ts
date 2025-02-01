@@ -50,7 +50,7 @@ export function transactionRoutes(app: FastifyInstance) {
             
             reply.cookie('sessionId', sessionId, {
                 path: '/',
-                maxAge: 60 * 60 * 24 * 7 // dura 7 dias
+                maxAge: 60 * 60 * 24 * 7 // dura 7 dias duração do ID
             })
         }
 
