@@ -1,6 +1,3 @@
-
-
-
 import { Knex } from 'knex'
 
 
