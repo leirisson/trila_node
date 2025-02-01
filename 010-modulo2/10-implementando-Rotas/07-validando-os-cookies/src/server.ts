@@ -1,6 +1,5 @@
 import 'dotenv/config'
 import fastify from 'fastify'
-import { kenx } from "./database"
 import {env} from '../env'
 import { transactionsRoutes } from '../routes/transactions'
 
