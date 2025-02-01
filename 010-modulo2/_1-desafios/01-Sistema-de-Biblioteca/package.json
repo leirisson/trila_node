@@ -1,0 +1,25 @@
+{
+  "name": "01-sistema-de-biblioteca",
+  "version": "1.0.0",
+  "description": "Requisitos Funcionais - [ ]  Cadastro de livros com informações básicas - [ ]  Busca de livros por título, autor ou ISBN - [ ]  Sistema de empréstimo e devolução- [ ]  Gerenciamento de multas por atraso- [ ]  Relatórios de livros emprestados",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch ./src/server.ts",
+    "knex": "node --import tsx ./node_modules/knex/bin/cli.js"
+  },
+  "author": "Leirisson souza dos santos",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.2"
+  }
+}
