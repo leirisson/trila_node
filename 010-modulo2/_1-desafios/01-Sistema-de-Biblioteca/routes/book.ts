@@ -2,7 +2,7 @@ import type { FastifyInstance } from "fastify";
 import { knex } from "../src/database";
 import { z } from 'zod'
 import { randomUUID } from 'node:crypto'
-import { formatDate } from "../ultil/FormateDate";
+import { formatDate } from "../util/FormateDate";
 import { checkSessionIdExist } from "../middlewares/checkSessionIDExists";
 
 
@@ -195,6 +195,7 @@ export function bookRoutes(app: FastifyInstance) {
     const { title, autor, isbn, year_publication, summary } = createSchemaBody.parse(request.body)
 
     let sessionId = request.cookies.sessionId
+    
     if (!sessionId) {
       sessionId = randomUUID()
       reply.cookie('sessionId', sessionId, {
