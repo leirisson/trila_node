@@ -6,6 +6,7 @@ import { formatDate } from "../ultil/FormateDate";
 import { checkSessionIdExist } from "../middlewares/checkSessionIDExists";
 
 
+
 export function bookRoutes(app: FastifyInstance) {
 
   //  pegando todos os livros
@@ -61,8 +62,9 @@ export function bookRoutes(app: FastifyInstance) {
 
     const book = await knex('book')
       .where({
-        'session_id' :sessionId,
-        'autor':autor})
+        'session_id': sessionId,
+        'autor': autor
+      })
       .returning('*')
 
     return reply.status(200).send({ book })
@@ -71,15 +73,21 @@ export function bookRoutes(app: FastifyInstance) {
   })
 
   //filtro po isbn
-  app.get('/filter/isbn', async (request, reply) => {
+  app.get('/filter/isbn', {
+    preHandler: [checkSessionIdExist],
+  }, async (request, reply) => {
     const createSchenaQueryParams = z.object({
       isbn: z.string()
     })
 
     const { isbn } = createSchenaQueryParams.parse(request.query)
+    const { sessionId } = request.cookies
 
     const book = await knex('book')
-      .where('isbn', '=', isbn)
+      .where({
+        'session_id': sessionId,
+        'isbn': isbn
+      })
       .returning('*')
 
     return reply.status(200).send({ book })
@@ -87,21 +95,30 @@ export function bookRoutes(app: FastifyInstance) {
   })
 
   // filtro por titulo
-  app.get('/filter/titulo', async (request, reply) => {
+  app.get('/filter/titulo', {
+    preHandler: [checkSessionIdExist],
+  }, async (request, reply) => {
     const createSchemaTitulo = z.object({
       titulo: z.string()
     })
 
     const { titulo } = createSchemaTitulo.parse(request.query)
+    const { sessionId } = request.cookies
+
 
     const book = await knex('book')
-      .where('title', '=', titulo)
+      .where({
+        'session_id': sessionId,
+        'title': titulo
+      })
 
     return { book }
   })
 
   // editando cadastro de um livro
-  app.put('/edit/:id', async (request, reply) => {
+  app.put('/edit/:id', {
+    preHandler: [checkSessionIdExist],
+  }, async (request, reply) => {
 
     const createSchemaBody = z.object({
       title: z.string(),
@@ -119,10 +136,16 @@ export function bookRoutes(app: FastifyInstance) {
 
     const { id } = createSchemaID.parse(request.params)
     const { title, autor, isbn, year_publication, summary } = createSchemaBody.parse(request.body)
+    const { sessionId } = request.cookies
+
+ 
 
 
     const book = await knex('book')
-      .where('id', '=', id)
+      .where({
+        'session_id': sessionId,
+        'id': id
+      })
       .update({
         title,
         autor,
@@ -140,15 +163,20 @@ export function bookRoutes(app: FastifyInstance) {
   })
 
   // deletando um livro
-  app.delete('/delete/:id', async (request, reply) => {
+  app.delete('/delete/:id', {
+    preHandler: [checkSessionIdExist],
+  }, async (request, reply) => {
     const createSchemaID = z.object({
       id: z.string()
     })
 
     const { id } = createSchemaID.parse(request.params)
+    const {sessionId} = request.cookies
 
     await knex('book')
-      .where('id', '=', id)
+      .where({
+        'session_id':sessionId,
+        'id':id})
       .delete()
 
     return reply.status(204).send()
