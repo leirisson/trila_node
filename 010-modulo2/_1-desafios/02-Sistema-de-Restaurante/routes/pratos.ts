@@ -84,7 +84,7 @@ export function pratosRoutes(app: FastifyInstance) {
 
         const { nome, preco, ingredientes, categoria } = createSchemaBody.parse(request.body)
 
-        let sessionId = request.cookies.sessionId
+        let sessionId = request.cookies.sessinId
 
         if (!sessionId) {
             sessionId = randomUUID()
@@ -92,8 +92,8 @@ export function pratosRoutes(app: FastifyInstance) {
                 path: '/',
                 maxAge: 60 * 60 * 24 * 6 // o cookie expira em 6 dias
             })
-        }
-
+            
+        } 
         await knex('pratos')
             .insert({
                 id: randomUUID(),
