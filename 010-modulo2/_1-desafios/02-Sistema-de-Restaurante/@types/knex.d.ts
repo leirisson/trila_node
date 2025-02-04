@@ -1,7 +1,7 @@
 import { Knex } from "knex";
 
-declare module 'knex/types/table' {
-    export interface Table{
+declare module 'knex/types/tables' {
+    export interface Tables{
         pratos: {
             id: string,
             nome: string,
