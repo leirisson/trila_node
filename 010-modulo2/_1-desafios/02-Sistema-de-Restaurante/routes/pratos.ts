@@ -7,24 +7,37 @@ import { checkSessionIdExists } from "../middleware/checkSessionIdExists";
 
 export function pratosRoutes(app: FastifyInstance) {
 
-    app.get('/all', async (request, reply) => {
-        
-        const sessionId = request.cookies.sessinId
+    app.get(
+        '/all',
+        {
+            preHandler: [checkSessionIdExists],
+        },
+        async (request, reply) => {
+            try {
+                const { sessionId } = request.cookies;
 
-        if (!sessionId) {
-            return reply.status(401).send({
-                erro: "Não autorizado"
-            })
-        }
+                const register = await knex('pratos')
+                    .where({
+                        'session_id': sessionId
+                    })
+                    .select()
 
-        const pratos = await knex('pratos')
-            .where({
-                'session_id': sessionId
-            })
-            .select()
+                return { register }
 
-        return { pratos }
-    })
+            } catch (error) {
+                request.log.error(error);
+                return reply.status(500).send({ error: 'Erro interno no servidor' });
+            }
+
+            const { sessionId } = request.cookies
+
+            console.log(sessionId)
+
+
+
+            console.log('teste')
+            return reply.status(200).send('fim')
+        })
 
     app.get('/prato/:id', async (request, reply) => {
 
@@ -92,8 +105,8 @@ export function pratosRoutes(app: FastifyInstance) {
                 path: '/',
                 maxAge: 60 * 60 * 24 * 6 // o cookie expira em 6 dias
             })
-            
-        } 
+
+        }
         await knex('pratos')
             .insert({
                 id: randomUUID(),

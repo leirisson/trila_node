@@ -1,13 +1,19 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
 
-export function checkSessionIdExists(request: FastifyRequest, reply: FastifyReply){
+export async function checkSessionIdExists(
+    request: FastifyRequest,
+     reply: FastifyReply,
+     
+    ){
 
-    const sessionId = request.cookies.sessinId
+    const sessionId = request.cookies.sessionId
 
     if(!sessionId){
         return reply.status(401).send({
             erro: "Não autorizado"
         })
     }
+    
+   
 }

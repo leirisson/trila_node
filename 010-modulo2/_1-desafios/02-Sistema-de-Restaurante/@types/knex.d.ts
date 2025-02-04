@@ -8,7 +8,7 @@ declare module 'knex/types/table' {
             preco:number,
             ingredientes: string,
             categoria: string,
-            session_id: string
+            session_id: string,
         }
     }
 }
