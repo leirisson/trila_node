@@ -13,9 +13,11 @@
   "type": "commonjs",
   "description": "",
   "devDependencies": {
+    "@types/node": "^22.13.1",
     "tsx": "^4.19.2"
   },
   "dependencies": {
+    "@fastify/cookie": "^11.0.2",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
     "knex": "^3.1.0",
