@@ -28,33 +28,39 @@ export function pratosRoutes(app: FastifyInstance) {
                 request.log.error(error);
                 return reply.status(500).send({ error: 'Erro interno no servidor' });
             }
+        })
 
+    app.get(
+        '/prato/:id',
+        {
+            preHandler: [checkSessionIdExists],
+        },
+        async (request, reply) => {
+
+            const createSchemaID = z.object({
+                id: z.string()
+            })
+
+            const { id } = createSchemaID.parse(request.params)
             const { sessionId } = request.cookies
 
-            console.log(sessionId)
+            const prato = await knex('pratos')
+                .where(
+                    {
+                        'session_id': sessionId,
+                        'id': id
+                    })
+                .select()
 
-
-
-            console.log('teste')
-            return reply.status(200).send('fim')
+            return { prato }
         })
 
-    app.get('/prato/:id', async (request, reply) => {
-
-        const createSchemaID = z.object({
-            id: z.string()
-        })
-
-        const { id } = createSchemaID.parse(request.params)
-
-        const prato = await knex('pratos')
-            .where({ 'id': id })
-            .select()
-
-        return { prato }
-    })
-
-    app.put('/update/:id', async (request, reply) => {
+    app.put(
+        '/update/:id',
+        {
+            preHandler: [checkSessionIdExists],
+        },
+         async (request, reply) => {
         const createSchemaBody = z.object({
             nome: z.string(),
             preco: z.number(),
@@ -68,11 +74,15 @@ export function pratosRoutes(app: FastifyInstance) {
 
         const { nome, preco, ingredientes, categoria } = createSchemaBody.parse(request.body)
         const { id } = createSchemaID.parse(request.params)
+        const { sessionId } = request.cookies
 
         const edit = await knex('pratos')
-            .where({
-                'id': id
-            })
+            .where(
+                {
+                    'session_id' : sessionId,
+                    'id': id
+                }
+            )
             .update({
                 nome,
                 preco,
@@ -120,15 +130,25 @@ export function pratosRoutes(app: FastifyInstance) {
         return reply.status(201).send()
     })
 
-    app.delete('/delete/:id', async (request, reply) => {
+    app.delete(
+        '/delete/:id',
+        {
+            preHandler: [checkSessionIdExists],
+        },
+         async (request, reply) => {
         const createSchemaID = z.object({
             id: z.string()
         })
 
         const { id } = createSchemaID.parse(request.params)
+        const {sessionId} = request.cookies
 
         await knex('pratos')
-            .where({ 'id': id })
+            .where(
+                {
+                    'session_id':sessionId, 
+                    'id': id
+                })
             .delete()
 
         return reply.status(204).send()
