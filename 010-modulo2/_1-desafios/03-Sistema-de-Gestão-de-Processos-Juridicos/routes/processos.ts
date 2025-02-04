@@ -50,7 +50,7 @@ export async function processosRoutes(app: FastifyInstance) {
                 })
             }
 
-            console.log(sessionId)
+         
 
             const processos = await knex('processos').select()
 
