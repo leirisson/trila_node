@@ -1,0 +1,19 @@
+{
+  "name": "juridico",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Leirisson souza dos santos",
+  "type": "commonjs",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}
