@@ -12,6 +12,11 @@ export function consultasRoutes(app: FastifyInstance) {
         return consultas
     })
 
+    app.delete('/cancelar', async (request, aply) => {
+
+    })
+
+    
     app.post('/create', async (request, reply) => {
 
 
