@@ -1,4 +1,3 @@
-import { error } from 'console'
 import 'dotenv/config'
 import {z} from 'zod'
 
@@ -13,3 +12,5 @@ if(prev_env.success === false){
     console.error('Erro ao entar buscar variavel de ambiente. ', prev_env.error.format())
     throw new Error('Erro ao tentar pegar variaveis de ambiente.')
 }
+
+export const env = prev_env.data
