@@ -9,7 +9,7 @@ export async function registerController(request: FastifyRequest, reply: Fastify
     const createBodySchemas = z.object({
         name: z.string(),
         email: z.string(),
-        password: z.string(),
+        password: z.string().min(6),
     })
 
     const { name, email, password } = createBodySchemas.parse(request.body)
