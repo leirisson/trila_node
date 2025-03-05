@@ -1,0 +1,31 @@
+{
+  "name": "4.5-inversao-de-dependencias",
+  "version": "1.0.0",
+  "description": "estudo de inversão de dependencias ",
+  "license": "ISC",
+  "author": "Leirisson souza",
+  "type": "commonjs",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "tsx watch ./src/server.ts",
+    "build": "tsup ./src --out-dir build",
+    "start": "node ./build/server.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1",
+    "@types/bcryptjs": "^2.4.6",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.1",
+    "install": "^0.13.0",
+    "npm": "^11.1.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.9",
+    "prisma": "^6.4.1",
+    "tsup": "^8.4.0",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
