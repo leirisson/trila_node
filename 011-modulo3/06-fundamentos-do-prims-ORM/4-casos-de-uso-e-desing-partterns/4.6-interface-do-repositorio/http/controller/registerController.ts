@@ -1,7 +1,7 @@
-import { hash } from "bcryptjs"
+
 import { FastifyReply, FastifyRequest } from "fastify"
-import { prisma } from "lib/prisma"
-import { registerUseCase } from "use-case/register"
+import { PrismaUsersReository } from "repositories/prisma/prisma-user-repository"
+import { RegisterUseCase } from "use-case/register"
 import { z } from "zod"
 
 
@@ -21,7 +21,17 @@ export async function registerController(request: FastifyRequest, reply: Fastify
     } = createBodyRequestSchema.parse(request.body)
 
   try {
-    await registerUseCase({name, email, password})
+
+    // ultilizando a  inversão de dependencia 
+    // o repositorio deve depender do caso de uso
+    // 1 - deve instaciar o Repositorio
+    // 2 - passar o repositorio como parametro para o caso de uso
+
+    const prismaUsersReository = new PrismaUsersReository()
+    const registerUseCase = new RegisterUseCase(prismaUsersReository)
+
+
+    await registerUseCase.execute({name, email, password})
   } catch (error) {
     return reply.status(409).send()
   }
