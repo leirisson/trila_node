@@ -1,4 +1,6 @@
+import { hash } from "bcryptjs";
 import fastify from "fastify";
+import { prisma } from "lib/prisma";
 import { z } from 'zod'
 
 export const app = fastify()
@@ -18,5 +20,15 @@ app.post('/users', async (request, reply) => {
         password
     } = createBodyRequestSchema.parse(request.body)
 
-    
+    const password_hash = await hash(password, 6)
+
+    await prisma.user.create({
+        data: {
+            name,
+            email,
+            password_hash
+        }
+    })
+
+    return reply.status(201).send()
 })
