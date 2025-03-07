@@ -9,12 +9,13 @@ interface registerInterfaceProducts {
 
 export async function registerUseCase({ name, price, category, onStock }: registerInterfaceProducts) {
 
-    await prisma.product.create({
-        data : {
-            name,
-            price,
-            category,
-            onStock
-        }
-    })
+    // await prisma.product.create({
+    //     data : {
+    //         name,
+    //         price,
+    //         category,
+    //         onStock
+    //     }
+    // })
 } 
+
