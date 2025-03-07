@@ -1,4 +1,5 @@
 import { prisma } from "lib/prisma"
+import { PrismaProductsRepository } from "repository/prisma-products-repository"
 
 interface registerInterfaceProducts {
     name: string,
@@ -8,14 +9,12 @@ interface registerInterfaceProducts {
 }
 
 export async function registerUseCase({ name, price, category, onStock }: registerInterfaceProducts) {
+try {
+    const prismaProductsRepository = new PrismaProductsRepository()
 
-    // await prisma.product.create({
-    //     data : {
-    //         name,
-    //         price,
-    //         category,
-    //         onStock
-    //     }
-    // })
+    await prismaProductsRepository.create({name, price, category, onStock})
+} catch (error) {
+    
+}
 } 
 

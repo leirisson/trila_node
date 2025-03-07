@@ -3,7 +3,7 @@ import { Prisma } from "@prisma/client";
 
 
 
-class PrismaProductsRepository {
+export class PrismaProductsRepository {
 
     async create (data: Prisma.ProductCreateInput){
        const product =  await prisma.product.create({
